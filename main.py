@@ -39,3 +39,15 @@ usuario_activo = ""
 if usuario_ingresado == usuario4_guardado and contrasena_ingresada == contrasena4_guardada:
     usuario_activo = usuario_ingresado
     print(f"\nAcceso autorizado. Usuario activo: {usuario_activo}\n")
+
+
+
+
+# _____ Registro de naves / ficha técnica ------> para comprobar que esta funcionando.
+    from modulos.datos_basicos import cargar_ficha_nave
+
+    ficha = cargar_ficha_nave()
+    print(ficha)
+
+
+
