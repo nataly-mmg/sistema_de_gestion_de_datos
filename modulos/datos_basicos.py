@@ -1,5 +1,35 @@
 # _____ Este módulo contiene funciones simples para capturar información ingresada por el usuario y crear los registros del sistema GO.
 
+
+# _____ Mostrar menú principal 
+
+def mostrar_menu():
+    print("\n--- Mostrar MENÚ PRINCIPAL: ---")
+    print("1 Registrar nave")
+    print("2 Ver/Editar nave")
+    print("3 Crear proyecto")
+    print("4 Ver/editar proyectos")
+    print("5 Asignar responsable")
+    print("6 Cambiar estado de proyecto")
+    print("7 Estadísticas")
+    print("8 Ver historial por nave")
+    print("0 Salir")
+
+
+def leer_int(texto):
+    while True:
+        try:
+            return int(input(texto))
+        except ValueError:
+            print("Error: Ingrese un entero")
+
+
+
+# _____________________________________________________________________
+
+from modulos.validaciones import clasificar_categoria_nave, pedir_float, validar_datos_nave, validar_positivos
+
+
 # _____ Captura una ficha técnica básica de nave y retorna un diccionario.
 def cargar_ficha_nave():
    
@@ -14,20 +44,23 @@ def cargar_ficha_nave():
     puerto_matricula = input("Puerto de matrícula: ").strip()
 
 # _____ Datos numéricos (conversión)
-    arqueo_bruto = float(input("Arqueo bruto (AB): ").strip())
-    arqueo_neto = float(input("Arqueo neto (AN): ").strip())
-    eslora_total = float(input("Eslora total (m): ").strip())
-    manga_maxima = float(input("Manga máxima (m): ").strip())
-    manga_moldeada = float(input("Manga moldeada (m): ").strip())
-    puntal = float(input("Puntal (m): ").strip())
+    arqueo_bruto = pedir_float("Arqueo bruto (AB): ")
+    arqueo_neto = pedir_float("Arqueo neto (AN): ")
+    eslora_total = pedir_float("Eslora total (m): ")
+    manga_maxima = pedir_float("Manga máxima (m): ")
+    manga_moldeada = pedir_float("Manga moldeada (m): ")
+    puntal = pedir_float("Puntal (m): ")
 
+    # _____ Operador de comparación: clasificación según arqueo bruto
 
-# _____ Operador de comparación: clasificación según arqueo bruto
-    if arqueo_bruto > 100:
-         categoria = "Mayor"
-    else:
-         categoria = "Menor"
+# VALIDACIÓN
+    if not validar_datos_nave(arqueo_bruto, arqueo_neto, eslora_total, manga_maxima, manga_moldeada):
+        return None
+    
+    if not validar_positivos(arqueo_bruto, arqueo_neto, eslora_total, manga_maxima, manga_moldeada, puntal):
+        return None
 
+    categoria = clasificar_categoria_nave(arqueo_bruto)
 
 
 # _____ Observación opcional
@@ -55,5 +88,5 @@ def cargar_ficha_nave():
     return ficha
 
 
-
+# ________________________________________________-
 

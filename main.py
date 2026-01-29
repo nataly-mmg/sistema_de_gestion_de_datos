@@ -11,6 +11,8 @@ print("\nBienvenido al Sistema de Gestión de Datos de Grupo Océanos.")
 print("Esta herramienta ha sido diseñada para apoyar la gestión interna")
 print("de naves y proyectos de ingeniería.\n")
 
+
+# _____ Login usuarios
 # _____ Datos de usuario previamente guardados 
 usuario1_guardado = "nataly"
 contrasena1_guardada = "1234"
@@ -25,29 +27,88 @@ contrasena3_guardada = "1234"
 usuario4_guardado = "0"
 contrasena4_guardada = "0"
 
-print("INICIO DE SESIÓN")
+print("\n--- INICIO DE SESIÓN ---")
 
 # _____ Capturar datos del usuario
 # _____ Con strip() para eliminar espacios en blanco y con .lower() para convertir todo en minúscula.
 
-usuario_ingresado = input("Ingresa tu nombre de usuario: ").strip().lower()
-contrasena_ingresada = input("Ingresa tu contraseña: ").strip()
-
 usuario_activo = ""
+intentos = 3
 
 # _____ Comparación de datos
-if usuario_ingresado == usuario4_guardado and contrasena_ingresada == contrasena4_guardada:
-    usuario_activo = usuario_ingresado
-    print(f"\nAcceso autorizado. Usuario activo: {usuario_activo}\n")
+
+while usuario_activo == "" and intentos > 0:
+    usuario_ingresado = input("Ingresa tu nombre de usuario: ").strip().lower()
+    contrasena_ingresada = input("Ingresa tu contraseña: ").strip()
+
+    if (usuario_ingresado == usuario1_guardado and contrasena_ingresada == contrasena1_guardada) \
+        or (usuario_ingresado == usuario2_guardado and contrasena_ingresada == contrasena2_guardada) \
+        or (usuario_ingresado == usuario3_guardado and contrasena_ingresada == contrasena3_guardada) \
+        or (usuario_ingresado == usuario4_guardado and contrasena_ingresada == contrasena4_guardada):
+
+        usuario_activo = usuario_ingresado
+        print(f"\n--- ACCESO AUTORIZADO. Usuario activo: {usuario_activo} --- \n")
+
+    else:
+        intentos -= 1
+        print("\nCredenciales inválidas. Acceso denegado.")
+        print(f"Intentos restantes: {intentos}\n")
+
+if usuario_activo == "":
+    print("Se superó el número máximo de intentos. El sistema se cerrará.")
+    exit()
+
+
+# __________________________________________________________________________________ 
+
+# _____ MENU GENERAL
+
+from modulos.datos_basicos import mostrar_menu, leer_int
+from modulos.datos_basicos import cargar_ficha_nave, leer_int
+
+naves = []
+proyectos = []
+
+
+while True:
+    mostrar_menu()     
+    opcion = input("\n--- Selecciona una opción: ---").strip()
+
+#______ Validación simple de opción 
+    if opcion not in ["0", "1", "2", "3", "4", "5", "6", "7", "8"]:
+        print("\n❌ Opción inválida. Intente nuevamente.\n")
+        continue  # vuelve al menú sin ejecutar nada más
+
+#______ 0) Salir
+    if opcion == "0":
+        print("\nSaliendo del sistema. Gracias por usar GO.\n")
+        break  # sale del while True
+
+#______  1) Registrar nave
+    if opcion == "1":
+        ficha = cargar_ficha_nave()
+        naves.append(ficha)
+        print(f"\n--- Nave registrada correctamente. ---")
+        print(f"Total naves registradas: {len(naves)}")
+
+
+#______ faltan opciones!...
 
 
 
 
-# _____ Registro de naves / ficha técnica ------> para comprobar que esta funcionando.
-    from modulos.datos_basicos import cargar_ficha_nave
-
-    ficha = cargar_ficha_nave()
-    print(ficha)
 
 
 
+
+
+
+
+
+
+
+# # _____ Registro de naves / ficha técnica ------> para comprobar que esta funcionando.
+#     from modulos.datos_basicos import cargar_ficha_nave
+
+#     ficha = cargar_ficha_nave()
+#     print(ficha)
