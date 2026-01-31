@@ -63,8 +63,12 @@ if usuario_activo == "":
 
 # _____ MENU GENERAL
 
-from modulos.datos_basicos import mostrar_menu, leer_int
-from modulos.datos_basicos import cargar_ficha_nave, leer_int
+from modulos.datos_basicos import mostrar_menu
+from modulos.datos_basicos import cargar_ficha_nave             #______  1) Registrar nave
+from modulos.datos_basicos import mostrar_ficha_nave            #______  3) Ver nave
+from modulos.gestion_datos import mostrar_listado_naves         #______  2) Editar nave #______  3) Ver nave
+from modulos.gestion_datos import seleccionar_nave_para_editar  #______  2) Editar nave #______  3) Ver nave
+from modulos.gestion_datos import editar_ficha_nave             #______  2) Editar nave
 
 naves = []
 proyectos = []
@@ -72,7 +76,7 @@ proyectos = []
 
 while True:
     mostrar_menu()     
-    opcion = input("\n--- Selecciona una opción: ---").strip()
+    opcion = input("\n--- Selecciona una opción: ").strip()
 
 #______ Validación simple de opción 
     if opcion not in ["0", "1", "2", "3", "4", "5", "6", "7", "8"]:
@@ -87,28 +91,28 @@ while True:
 #______  1) Registrar nave
     if opcion == "1":
         ficha = cargar_ficha_nave()
-        naves.append(ficha)
-        print(f"\n--- Nave registrada correctamente. ---")
-        print(f"Total naves registradas: {len(naves)}")
+        if ficha is not None:
+            naves.append(ficha)
+            print(f"\n--- Nave registrada correctamente. ---")
+            print(f"Total naves registradas: {len(naves)}")
+
+#______  2) Editar nave
+    elif opcion == "2":
+        if not naves:
+            print("No hay naves registradas.")
+        else:
+            mostrar_listado_naves(naves)
+            nave = seleccionar_nave_para_editar(naves)
+            editar_ficha_nave(nave)
+
+#______  3) Ver nave
+    elif opcion == "3":
+        if not naves:
+            print("No hay naves registradas.")
+        else:
+            mostrar_listado_naves(naves)
+            nave = seleccionar_nave_para_editar(naves)
+            mostrar_ficha_nave(ficha)
 
 
 #______ faltan opciones!...
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# # _____ Registro de naves / ficha técnica ------> para comprobar que esta funcionando.
-#     from modulos.datos_basicos import cargar_ficha_nave
-
-#     ficha = cargar_ficha_nave()
-#     print(ficha)

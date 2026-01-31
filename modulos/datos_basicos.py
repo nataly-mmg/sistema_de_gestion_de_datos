@@ -6,7 +6,8 @@
 def mostrar_menu():
     print("\n--- Mostrar MENÚ PRINCIPAL: ---")
     print("1 Registrar nave")
-    print("2 Ver/Editar nave")
+    print("2 Editar nave")
+    print("3 Ver nave")
     print("3 Crear proyecto")
     print("4 Ver/editar proyectos")
     print("5 Asignar responsable")
@@ -21,21 +22,40 @@ def leer_int(texto):
         try:
             return int(input(texto))
         except ValueError:
-            print("Error: Ingrese un entero")
+            print(" ❌ Error: Ingrese un entero")
+
+def mostrar_ficha_nave(ficha: dict):
+    print("\n" + "=" * 50)
+    print("📋 FICHA TÉCNICA DE LA NAVE")
+    print("=" * 50)
+
+    for clave, valor in ficha.items():
+        if clave == "historial":
+            continue  
+
+        etiqueta = clave.replace("_", " ").capitalize()
+        print(f"{etiqueta:<25}: {valor}")
+
+    print("=" * 50 + "\n")
 
 
+# _____________________________________________________________________ #______  1) Registrar nave
 
-# _____________________________________________________________________
+from modulos.validaciones import (
+    pedir_float_positivo,
+    pedir_arqueo_neto_valido,
+    pedir_manga_moldeada_valida,
+    pedir_manga_maxima_valida,
+    clasificar_categoria_nave,  
+    )
 
-from modulos.validaciones import clasificar_categoria_nave, pedir_float, validar_datos_nave, validar_positivos
 
-
-# _____ Captura una ficha técnica básica de nave y retorna un diccionario.
-def cargar_ficha_nave():
+# _____ Captura una ficha técnica básica de nave y retorna un diccionario. #______  1) Registrar nave
+def cargar_ficha_nave(): #______  1) Registrar nave
    
     print("\n--- REGISTRAR NAVE (FICHA TÉCNICA) ---")
     
-# _____ Características generales
+# _____ Características generales. #______  1) Registrar nave
     nombre = input("Nombre de la nave: ").strip()
     distintivo_llamada = str(input("Distintivo de llamada: ")).strip().lower()
     tipo = input("Tipo de nave (Barcaza / Wellboat / etc.): ").strip()
@@ -43,28 +63,19 @@ def cargar_ficha_nave():
     armador = input("Armador: ").strip()
     puerto_matricula = input("Puerto de matrícula: ").strip()
 
-# _____ Datos numéricos (conversión)
-    arqueo_bruto = pedir_float("Arqueo bruto (AB): ")
-    arqueo_neto = pedir_float("Arqueo neto (AN): ")
-    eslora_total = pedir_float("Eslora total (m): ")
-    manga_maxima = pedir_float("Manga máxima (m): ")
-    manga_moldeada = pedir_float("Manga moldeada (m): ")
-    puntal = pedir_float("Puntal (m): ")
-
-    # _____ Operador de comparación: clasificación según arqueo bruto
-
-# VALIDACIÓN
-    if not validar_datos_nave(arqueo_bruto, arqueo_neto, eslora_total, manga_maxima, manga_moldeada):
-        return None
-    
-    if not validar_positivos(arqueo_bruto, arqueo_neto, eslora_total, manga_maxima, manga_moldeada, puntal):
-        return None
+# _____ Datos numéricos (conversión). #______  1) Registrar nave
+    arqueo_bruto = pedir_float_positivo("Arqueo bruto (AB): ")
+    arqueo_neto = pedir_arqueo_neto_valido(arqueo_bruto)
+    eslora_total = pedir_float_positivo("Eslora total (m): ")
+    manga_maxima = pedir_manga_maxima_valida(eslora_total)
+    manga_moldeada = pedir_manga_moldeada_valida(manga_maxima)
+    puntal = pedir_float_positivo("Puntal (m): ")
 
     categoria = clasificar_categoria_nave(arqueo_bruto)
 
-
-# _____ Observación opcional
+# _____ Observación opcional. #______  1) Registrar nave
     observaciones = input("Observaciones (opcional): ").strip()
+
 
     ficha = {
         "nombre": nombre,

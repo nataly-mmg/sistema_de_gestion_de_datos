@@ -2,46 +2,53 @@
 # _____ Reglas y validaciones del sistema GO
 
     
+# _____ Solicita un número positivo. Repite hasta que el usuario ingrese un valor válido. #______  1) Registrar nave
+
+def pedir_float_positivo(mensaje: str) -> float:
+  
+    while True:
+        valor = pedir_float(mensaje)
+
+        if valor > 0:
+            return valor
+        else:
+            print("❌ Error: Debe ingresar un número positivo mayor a 0.")
+
+
+# _____ Solicita que AN sea menor que AB. #______  1) Registrar nave
+
+def pedir_arqueo_neto_valido(arqueo_bruto: float) -> float:
+ 
+    while True:
+        arqueo_neto = pedir_float_positivo("Arqueo neto (AN): ")
+        if arqueo_neto < arqueo_bruto:
+            return arqueo_neto
+        print("❌ Error: El Arqueo Neto debe ser menor que el Arqueo Bruto.")
+
+
+# _____ Solicita que la manga máxima sea menor que la eslora total. #______  1) Registrar nave
+
+def pedir_manga_maxima_valida(eslora_total: float) -> float:
     
-# _____ Validación booleana
-
-def validar_positivos(arqueo_bruto, arqueo_neto, eslora_total, manga_maxima, manga_moldeada, puntal):
-    if (arqueo_bruto > 0 and arqueo_neto > 0 and eslora_total > 0 and
-        manga_maxima > 0 and manga_moldeada > 0 and puntal > 0):
-        return True
-    else:
-        print("Debe ingresar un valor válido: todos los valores numéricos deben ser positivos.")
-        return False
+    while True:
+        manga_maxima = pedir_float_positivo("Manga máxima (m): ")
+        if manga_maxima < eslora_total:
+            return manga_maxima
+        print("❌ Error: La Manga Máxima debe ser menor que la Eslora Total.")
 
 
+# _____ Solicita que la manga moldeada sea menor que la manga máxima. #______  1) Registrar nave
 
-# _____ Valida coherencia de datos dimensionales de la nave.
-
-def validar_datos_nave(arqueo_bruto, arqueo_neto, eslora_total, manga_maxima, manga_moldeada):
-
-    # Operador de comparación: AB debe ser mayor que AN
-    if arqueo_bruto <= arqueo_neto:
-        print("\nDebe ingresar un valor válido: el Arqueo Bruto debe ser mayor al Arqueo Neto.")
-        return False
-
-    # Operador de comparación: eslora mayor que manga máxima
-    elif eslora_total <= manga_maxima:
-        print("\nDebe ingresar un valor válido: la Eslora Total debe ser mayor a la Manga Máxima.")
-        return False
-
-    # Operador de comparación: manga máxima mayor que manga moldeada
-    elif manga_maxima <= manga_moldeada:
-        print("\nDebe ingresar un valor válido: la Manga Máxima debe ser mayor a la Manga Moldeada.")
-        return False
-
-    else:
-        print("\nDatos dimensionales válidos.")
-        return True
+def pedir_manga_moldeada_valida(manga_maxima: float) -> float:
+    
+    while True:
+        manga_moldeada = pedir_float_positivo("Manga moldeada (m): ")
+        if manga_moldeada < manga_maxima:
+            return manga_moldeada
+        print("❌ Error: La Manga Moldeada debe ser menor que la Manga Máxima.")
 
 
-
-
-# _____ Clasifica categoria de la nave.
+# _____ Clasifica categoria de la nave. #______  1) Registrar nave
 
 def clasificar_categoria_nave(arqueo_bruto):
 
@@ -51,7 +58,7 @@ def clasificar_categoria_nave(arqueo_bruto):
         return "Menor"
 
 
-# _____     Solicita un número decimal. Repite hasta que el usuario ingrese un valor válido.
+# _____     Solicita números y no acepta letras. Repite hasta que el usuario ingrese un valor válido. #______  1) Registrar nave
 
 def pedir_float(mensaje):
     
