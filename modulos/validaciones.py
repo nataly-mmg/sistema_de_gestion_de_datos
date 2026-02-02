@@ -69,3 +69,24 @@ def pedir_float(mensaje):
             return float(valor)
         except ValueError:
             print("❌ Error: Debe ingresar solo números.\n")
+
+
+
+
+# _____ Selección de trabajos
+
+from modulos. datos_basicos import trabajos_disponibles
+
+def pedir_trabajos_validos():
+    while True:
+        entrada = input("Selección: ").strip()
+        try:
+            indices = [int(x) for x in entrada.split(",")]
+            if all(1 <= i <= len(trabajos_disponibles) for i in indices):
+                return [trabajos_disponibles[i - 1] for i in indices]
+            else:
+                print("❌ Número fuera de rango.")
+        except ValueError:
+            print("❌ Ingrese solo números separados por coma.")
+
+
