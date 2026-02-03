@@ -26,8 +26,6 @@ Diseñar e implementar un sistema de gestión en Python que permita:
 - Gestionar proyectos asociados a cada nave.
 - Controlar estados de avance de los proyectos.
 - Asignar responsables de ejecución.
-- Mantener un historial completo de eventos y observaciones.
-- Aplicar estructuras de control, funciones, estructuras de datos y modularización.
 
 ---
 
@@ -35,15 +33,15 @@ Diseñar e implementar un sistema de gestión en Python que permita:
 
 El sistema presenta un menú principal con las siguientes opciones:
 
-1. Registrar nave  
-2. Ver / Editar nave  
-3. Crear proyecto  
-4. Ver / Editar proyectos  
-5. Asignar responsable  
-6. Cambiar estado de proyecto  
-7. Visualizar estadísticas  
-8. Ver historial por nave  
-0. Salir  
+1 Registrar nave 🚢
+2 Editar naves 🚢
+3 Ver naves 🚢
+4 Crear proyecto 📐
+5 Editar proyectos 📐
+6 Ver proyectos 📐
+7 Asignar responsable 👷
+8 Cambiar estado de proyecto 📐
+0 Salir
 
 Cada proyecto puede encontrarse en uno de los siguientes estados:
 
@@ -52,7 +50,6 @@ Cada proyecto puede encontrarse en uno de los siguientes estados:
 - DETENIDO  
 - TERMINADO  
 
-Las observaciones y notas asociadas a proyectos o historial son siempre opcionales y quedan registradas con fecha y autor.
 
 ---
 
@@ -65,8 +62,7 @@ El proyecto se organiza de la siguiente manera:
 - **modulos/**: carpeta destinada a la organización modular del código.
 - **README.md**: documentación general del proyecto.
 
-A medida que avance el desarrollo, se incorporarán nuevos archivos dentro de la carpeta `modulos` para separar responsabilidades y mejorar la mantenibilidad del código.
-
+......
 ---
 
 ## 5. Tecnologías y conceptos aplicados

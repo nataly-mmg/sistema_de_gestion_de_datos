@@ -77,12 +77,9 @@ from modulos.gestion_datos import cargar_proyecto               #______  4 Crear
 from modulos.gestion_datos import mostrar_listado_proyectos     #______  6 Ver proyectos 📐
 from modulos.gestion_datos import editar_proyecto               #______  5 Editar proyecto 📐
 
-
-# from modulos.gestion_datos import seleccionar_proyecto_para_editar
-# from modulos.validaciones import pedir_numero_en_rango
-# from modulos.validaciones import pedir_trabajos_validos
-
-
+from modulos.gestion_datos import asignar_responsable           #______  7 Asignar responsable en proyecto 👷
+from modulos.gestion_datos import cambiar_estado_proyecto       #______  8 Cambiar estado de proyecto 📐
+# from modulos.gestion_datos import mostrar_estadisticas
 
 naves = []
 proyectos = []
@@ -179,22 +176,17 @@ while True:
 
 
 
+#______  7 Asignar responsable en proyecto 👷
+
+    elif opcion == "7":  
+        asignar_responsable(proyectos)
 
 
 
 
 
+#______  8 Cambiar estado de proyecto 📐
 
+    elif opcion == "8":
+        cambiar_estado_proyecto(proyectos)
 
-
-
-
-
-
-
-
-
-
-
-
-#______ faltan opciones!...

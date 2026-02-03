@@ -8,15 +8,13 @@ def mostrar_menu():
     print("\n Mostrar MENÚ PRINCIPAL: ")
     print("~" * 50)
     print("1 Registrar nave 🚢")
-    print("2 Editar nave 🚢")
-    print("3 Ver nave 🚢")
+    print("2 Editar naves 🚢")
+    print("3 Ver naves 🚢")
     print("4 Crear proyecto 📐")
-    print("5 Editar proyecto 📐")
+    print("5 Editar proyectos 📐")
     print("6 Ver proyectos 📐")
     print("7 Asignar responsable 👷")
     print("8 Cambiar estado de proyecto 📐")
-    print("9 Estadísticas 📊")
-    print("10 Ver historial por nave 🗂️")
     print("0 Salir")
     print("~" * 50 + "\n")
 
@@ -93,7 +91,7 @@ trabajos_disponibles = {
     9: "Otro (especificar)"
 }
 
-estados_proyectos = ["Creado", "En ejecución", "Finalizado", "Suspendido"]
+
 
 
 def mostrar_trabajos_disponibles():
@@ -114,6 +112,12 @@ def mostrar_ficha_proyecto(proyecto):
     print(f"Nave        : {proyecto['nave']}")
     print(f"Descripción : {proyecto['descripcion']}")
     print(f"Estado      : {proyecto['estado']}")
+  
+    responsable = proyecto.get("responsable", "")
+    if responsable:
+        print(f"Responsable : {responsable}")
+    else:
+        print("Responsable : (No asignado)")
 
     print("\nTrabajos:")
     for t in proyecto["trabajos"]:
@@ -121,3 +125,21 @@ def mostrar_ficha_proyecto(proyecto):
 
     print("~" * 50)
 
+
+# _________________________________ # _____7 Asignar responsable 👷
+
+RESPONSABLES = (
+    "Nataly",
+    "Christopher",
+    "Anthony"
+)
+
+
+# _________________________________ # _____8 Cambiar estado de proyecto 📐
+
+ESTADOS_PROYECTOS = (
+    "EN_ESPERA",
+    "EN_PROCESO",
+    "DETENIDO",
+    "TERMINADO"
+)

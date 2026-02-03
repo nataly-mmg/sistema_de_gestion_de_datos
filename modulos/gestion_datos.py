@@ -219,7 +219,7 @@ def cargar_proyecto(numero_proyecto, naves, usuario_activo):
 
     # Registrar en historial de la nave (sin cambiar estructura)
     evento = {
-        "fecha": "HOY",  # luego puedes automatizar fecha
+        "fecha": "HOY",  
         "usuario": usuario_activo,
         "accion": "CREAR_PROYECTO",
         "detalle": f"Proyecto N°{numero_proyecto}: {descripcion}"
@@ -234,7 +234,7 @@ def cargar_proyecto(numero_proyecto, naves, usuario_activo):
 
 def mostrar_listado_proyectos(proyectos):
 
-    print("\n📐 LISTADO DE PROYECTOS REGISTRADOS")
+    print("\n~~~ 📐 LISTADO DE PROYECTOS REGISTRADOS")
     print("~" * 50)
 
     for i, p in enumerate(proyectos, start=1):
@@ -247,13 +247,13 @@ def mostrar_listado_proyectos(proyectos):
 
 
 
-
-
 # _____ Seleccione un proyecto.
 
 def seleccionar_proyecto(proyectos, indice):
     return proyectos[indice]
 
+def obtener_proyecto_por_indice(proyectos, indice):
+    return proyectos[indice]
 
 
 
@@ -310,11 +310,11 @@ def editar_proyecto(proyectos):
 
 
 
-
+# _____ Cambiar trabajos disponibles en un proyecto.
 
 def cambiar_trabajos_proyecto(proyecto):
 
-    print("\n📐 TRABAJOS DISPONIBLES")
+    print("\n~~~ 📐 TRABAJOS DISPONIBLES")
     mostrar_trabajos_disponibles()
 
     trabajos = pedir_trabajos_validos()
@@ -323,3 +323,109 @@ def cambiar_trabajos_proyecto(proyecto):
     print("✅ Trabajos del proyecto actualizados.")
 
 
+
+from modulos.datos_basicos import RESPONSABLES
+from modulos.datos_basicos import ESTADOS_PROYECTOS
+
+# _____ Asignar responsable en un proyecto.
+
+
+def asignar_responsable(proyectos):
+    proyecto = seleccionar_proyecto_interactivo(proyectos)
+    if proyecto is None:
+        return
+
+    print("\n👷 ASIGNAR RESPONSABLE")
+    print("~" * 50)
+
+    for i, r in enumerate(RESPONSABLES, start=1):
+        print(f"{i}) {r}")
+
+    while True:
+        try:
+            seleccion = int(input("Seleccione responsable: "))
+            if 1 <= seleccion <= len(RESPONSABLES):
+                proyecto["responsable"] = RESPONSABLES[seleccion - 1]
+                print("✅ Responsable asignado correctamente.")
+                return
+            print("❌ Número fuera de rango.")
+        except ValueError:
+            print("❌ Debe ingresar un número válido.")
+
+
+def seleccionar_proyecto_interactivo(proyectos):
+    if not proyectos:
+        print("❌ No hay proyectos registrados.")
+        return None
+
+    print("\n📋 LISTADO DE PROYECTOS")
+    print("~" * 50)
+
+    for i, p in enumerate(proyectos, start=1):
+        print(f"{i}) Proyecto N°{p['numero_proyecto']} - Nave: {p['nave']} - Estado: {p['estado']}")
+
+    print("~" * 50)
+
+    while True:
+        try:
+            opcion = int(input("Seleccione el número del proyecto (0 para volver): "))
+            if opcion == 0:
+                return None
+            if 1 <= opcion <= len(proyectos):
+                return proyectos[opcion - 1]
+            print("❌ Número fuera de rango.")
+        except ValueError:
+            print("❌ Debe ingresar un número válido.")
+
+
+
+
+# _____ Cambiar estado de proyecto
+
+def cambiar_estado_proyecto(proyectos):
+    proyecto = seleccionar_proyecto_interactivo(proyectos)
+    if proyecto is None:
+        return
+
+    print("\n📐 CAMBIAR ESTADO DEL PROYECTO")
+    print("~" * 50)
+
+    for i, estado in enumerate(ESTADOS_PROYECTOS, start=1):
+        print(f"{i}) {estado}")
+
+    while True:
+        try:
+            seleccion = int(input("Seleccione nuevo estado: "))
+            if 1 <= seleccion <= len(ESTADOS_PROYECTOS):
+                proyecto["estado"] = ESTADOS_PROYECTOS[seleccion - 1]
+                print("✅ Estado actualizado correctamente.")
+                return
+            else:
+                print("❌ Número fuera de rango.")
+        except ValueError:
+            print("❌ Debe ingresar un número válido.")
+
+
+
+
+# _____ Estadisticas
+
+def mostrar_estadisticas(proyectos):
+
+    print("\n📊 ESTADÍSTICAS DE PROYECTOS")
+    print("~" * 40)
+
+    for estado in ESTADOS_PROYECTOS:
+        contador = 0
+        for p in proyectos:
+            if p["estado"] == estado:
+                contador += 1
+
+        print(f"{estado}: {contador}")
+
+
+def eliminar_proyecto(proyectos):
+    proyecto = seleccionar_proyecto_interactivo(proyectos)
+    if proyecto:
+        proyectos.remove(proyecto)
+        print("🗑️ Proyecto eliminado correctamente.")
